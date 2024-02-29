@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="poster.css">
+<title>Reinforcement Learning Poster Presentation</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+<style>
+    #slideContent {
+        text-align: left;
+    }
+</style>
+</head>
+<body>
+
+    <div class="grid-container">
+        <div class="grid-item title"><strong>AlphaZero: Learning Chess and Shogi through Self-Play</strong>    
+        </div>
+        <div class="grid-item methods"><h2>A new approach to chess engines</h2>
+            <figure>
+            <img class = "two" src="alpha_zero_stockfish.gif">
+            <figcaption>AlphaZero playing against SOTA engine Stockfish (1-0)</figcaption>
+            </figure>
+            <p >Traditionally, chess engines are made up of <strong>hand-crafted parameters</strong>  and trained on real games. Positions are evaluated based on a <strong>scoring function</strong> , and a handful of options are generated and then pruned with <strong>alpha beta</strong>. </p>
+                
+            <p>
+                AlphaZero learns chess (and shogi) through <strong>self-play</strong> , starting from the rules of the game. It trains itself with a <strong>reinforcement learning algorithm</strong> , and uses <strong>Monte Carlo tree search</strong>  to select the best options for a given position s. 
+            </p>
+        </div>
+        <div class="grid-item extra_space">
+            <h2>Methods</h2>
+            <div class="box" onclick="nextSlide()">
+                <p id="slideContent" >AlphaZero makes use of a <strong>deep learning architecture</strong>, paired with a <strong>simple reinforcement learning policy</strong>.<br><br>Model has <strong>parameters <i>&#952;</i></strong></br><br><strong>Input:</strong> board position s</br><br><strong>Output:</strong> <math xmlns="http://www.w3.org/1998/Math/MathML">
+                    <mrow>
+                      <mi>p</mi>
+                      <mi>a</mi>
+                      <mo>=</mo>
+                      <mi>P</mi>
+                      <mo>(</mo>
+                      <mi>r</mi>
+                      <mo>(</mo>
+                      <mi>a</mi>
+                      <mo>|</mo>
+                      <mi>s</mi>
+                      <mo>)</mo>
+                      <mo>)</mo>
+                    </mrow>
+                  </math> (probability of action given state<i>s</i>)</br><br><i>v &asymp; E[z&#124;s]</i> ( scalar <i>v</i> evaluating outcome <i>z</i> for state<i>s</i>)</br></p>
+                  <div class = "center"><button type="button">Click Me!</button></div>
+                
+            </div>
+            <script>
+                var slides = ["<p>To explore the probability space, AlphaZero uses <strong>Monte Carlo tree search</strong> for each self played game (going from root to leaf)</p><p><img class = \"three\" src = \"chessdecs.png\"></p><p>The final outcome of a game is scored on a scale from -1 (loss) to 1 (win)</p>", "<p>The parameters are updated to minimize: <ul> <li>loss between actual and predicted outcome</li><li>difference between policy gradient and probability vector</li></ul></p><p>Theta is adjusted w/ gradient descent on a function summing MSE and CLE</p><p><img class = \"four\" src = \"loss2.png\"</p>","<div class = inside_box>AlphaZero makes use of a <strong>deep learning architecture</strong>, paired with a <strong>simple reinforcement learning policy</strong></p><p>Model has <strong>parameters &#952;</strong></p><p><strong>Input</strong>: board position <i>s</i></p><p><strong>Output:</strong> <ul><li><math xmlns=\"http://www.w3.org/1998/Math/MathML/\"><mrow><mi>p</mi><mi>a</mi><mo>=</mo><mi>P</mi><mo>(</mo><mi>r</mi><mo>(</mo><mi>a</mi><mo>|</mo><mi>s</mi><mo>)</mo><mo>)</mo></mrow></math> (probability of action given state s)</li><li><i>v &asymp; E[z&#124;s]</i> (scalar <i>v</i> evaluating outcome <i>z</i> for state <i>s</i>)</li></ul></p>"];
+                var currentSlide = 0;
+            
+                function nextSlide() {
+                    // Update the content of the box
+                    document.getElementById("slideContent").innerHTML = slides[currentSlide];
+            
+                    // Increment the slide index
+                    currentSlide++;
+            
+                    // If we reached the end, loop back to the first slide
+                    if (currentSlide >= slides.length) {
+                        currentSlide = 0;
+                    }
+                }
+            </script>
+        
+    
+        </div>
+        <div class="grid-item main_chunk"><h2>Performance</h2>
+        <figure><img class = "two" src = "alphazero_performance.jpg"><figcaption>AlphaZero performance againnst SOTA models</figcaption></figure>
+        <p>AlphaZero <strong>outperformed</strong> state-of-the-art engines (Stockfish for chess, Elmo for shogi, AG0 for Go) after a few hours of training accross all games</p>
+        <p>Performance differs for each game, as in chess the optimal outcome is sometimes considered to be the draw.</p>
+        <p>It also discovered commmon chess openings and tactics of its own during training.</p>
+        <p>AlphaZero goes through <strong> less options </strong> when selecting the next move (80 000 compared to 70 million for Stockfish), making it more <strong>efficient</strong></p>
+    </div>
+        <div class="grid-item extra_chunk1"><h2>From Go to Shogi and Chess</h2>
+        <p>AlphaZero is based on its predecessor, AlphaGoZero w/ some adjustements</p>
+        <p>Go is a <strong>symmetric</strong> game (all pieces have the same value), and the action space is much <strong>narrower</strong></p>
+        <p>This allows for <strong>rotated game generation</strong> to improve network performance</p>
+        <p>AlphaGoZero uses games from the best player for each simulation, whereas AlphaZero parameters are <strong>continuously updated</strong> </p>
+        </div>
+        <div class="grid-item extra_chunk2"><h2>References </h2>
+        
+        <p>Binz, K. (2017, June 27). The Chess SuperTree. Fewer Lacunae. Retrieved February 29, 2024, from https://kevinbinz.com/2015/02/28/the-chess-supertree/</p>
+        <p>Chess.com. (2019, April 17). AlphaZero Crushes Stockfish In New 1,000-Game Match. Retrieved February 29, 2024, from https://www.chess.com/news/view/updated-alphazero-crushes-stockfish-in-new-1-000-game-match
+        <p>DeepMind. (2018, December 06). AlphaZero: Shedding new light on chess, shogi, and Go. Retrieved February 29, 2024, from https://deepmind.google/discover/blog/alphazero-shedding-new-light-on-chess-shogi-and-go/</p>
+        <p>Silver, D., Hubert, T., Schrittwieser, J., Antonoglou, I., Lai, M., Guez, A., ... & Hassabis, D. (2017). Mastering chess and shogi by self-play with a general reinforcement learning algorithm. arXiv preprint arXiv:1712.01815.</p>
+
+    </div>
+       
+</body>
+</html>
